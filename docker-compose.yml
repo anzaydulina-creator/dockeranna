@@ -1,0 +1,31 @@
+
+services:
+  web:
+    build: .
+    ports:
+      - "8098:8098"
+    networks:
+      - internet
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    networks:
+      - internet
+
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile2
+    depends_on:
+      - web
+    networks:
+      - internet
+
+networks:
+  internet:
+    driver: bridge
+
+
+
